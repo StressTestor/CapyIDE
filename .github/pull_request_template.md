@@ -1,7 +1,27 @@
-<!-- Thank you for submitting a Pull Request. Please:
-* Read our Pull Request guidelines:
-  https://github.com/microsoft/vscode/wiki/How-to-Contribute#pull-requests
-* Associate an issue with the Pull Request.
-* Ensure that the code is up-to-date with the `main` branch.
-* Include a description of the proposed changes and how to test them.
--->
+## Summary
+
+Describe the purpose of this change.
+
+## Changes
+
+- What changed and why
+- Any breaking changes
+
+## Testing
+
+- How did you test this change? Include commands and test coverage.
+
+## Screenshots (if UI)
+
+## Security/Privacy
+
+- Any changes that affect local storage, telemetry, or secrets
+
+## Checklist
+
+- [ ] Build and tests pass locally
+- [ ] Updated docs (README, comments) if needed
+- [ ] Kept platform boundaries (no Node-only modules in browser layers)
+- [ ] No MCP artifacts added to product packaging
+
+
