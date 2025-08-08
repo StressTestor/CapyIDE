@@ -1,0 +1,131 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "kg:CapyIDE",
+      "@type": "SoftwareApplication",
+      "name": "CapyIDE",
+      "description": "Memory-native AI IDE",
+      "applicationStatus": "pre-release",
+      "softwareRequirements": "kg:MemoryStack",
+      "pricingTiers": ["kg:FreeTier", "kg:ProTier", "kg:EnterpriseTier"]
+    },
+    {
+      "@id": "kg:MemoryStack",
+      "@type": "SoftwareComponent",
+      "name": "MemoryStack",
+      "description": "Core memory management component",
+      "featureList": ["Ephemeral", "Short", "Vector", "Cold"],
+      "security": "AES-256 encryption"
+    },
+    {
+      "@id": "kg:VS_Code_Fork",
+      "@type": "SoftwareSourceCode",
+      "name": "VS_Code_Fork",
+      "description": "Modified VS Code base for CapyIDE",
+      "criticality": "TOP_PRIORITY",
+      "integrationPoints": ["Extension host", "LSP wiring"]
+    },
+    {
+      "@id": "kg:CapyIDE_Domain",
+      "@type": "DigitalAsset",
+      "name": "CapyIDE.dev",
+      "description": "Official project domain",
+      "dateCreated": "2025-08-05",
+      "url": "https://capyide.dev"
+    },
+    {
+      "@id": "kg:FreeTier",
+      "@type": "Product",
+      "name": "CapyIDE Free",
+      "description": "Free tier for developers",
+      "price": "0",
+      "memory": "1.5GB total (1GB ephemeral + 500MB long-term)",
+      "aiRequests": "200 fast/month",
+      "features": ["Basic context recall"],
+      "targetAudience": ["Students", "Hobbyists", "Open-source contributors"]
+    },
+    {
+      "@id": "kg:ProTier",
+      "@type": "Product",
+      "name": "CapyIDE Pro",
+      "description": "Professional tier with unlimited AI and memory",
+      "price": "15",
+      "priceCurrency": "USD",
+      "billingPeriod": "monthly",
+      "memory": "10GB+ multi-layer persistence",
+      "aiRequests": "Unlimited (mainstream models)",
+      "models": ["GPT-4", "Claude 3", "CodeLlama", "DeepSeek", "Llama 3"],
+      "features": ["SSO", "Audit logs", "Collaboration", "Priority context recall"],
+      "positioning": "Only IDE with persistent memory + unlimited AI for $15"
+    },
+    {
+      "@id": "kg:EnterpriseTier",
+      "@type": "Product",
+      "name": "CapyIDE Enterprise",
+      "description": "Custom solution for organizations",
+      "price": "Custom",
+      "memory": "Unlimited dedicated instances",
+      "aiRequests": "Ultra-fast unlimited + custom tuning",
+      "premiumModels": ["Claude Opus", "GPT-4o Extended"],
+      "features": ["24/7 priority engineering", "Custom SLA", "On-prem/hybrid deployment", "Predictive context recall"],
+      "note": "Premium models list may change as new models become available"
+    },
+    {
+      "@id": "kg:Tabnine",
+      "@type": "SoftwareApplication",
+      "name": "Tabnine",
+      "description": "AI code completion tool",
+      "pricing": {
+        "Pro": "12",
+        "Enterprise": "Custom"
+      }
+    },
+    {
+      "@id": "kg:GitHubCopilot",
+      "@type": "SoftwareApplication",
+      "name": "GitHub Copilot",
+      "description": "AI pair programmer",
+      "pricing": {
+        "Individual": "10",
+        "Business": "19",
+        "Enterprise": "Custom"
+      }
+    },
+    {
+      "@type": "Relation",
+      "subject": "kg:CapyIDE",
+      "predicate": "usesComponent",
+      "object": "kg:MemoryStack",
+      "description": "Core memory management component"
+    },
+    {
+      "@type": "Relation",
+      "subject": "kg:CapyIDE",
+      "predicate": "dependsOn",
+      "object": "kg:VS_Code_Fork",
+      "criticality": "TOP_PRIORITY"
+    },
+    {
+      "@type": "Relation",
+      "subject": "kg:MemoryStack",
+      "predicate": "integratedVia",
+      "object": "kg:VS_Code_Fork",
+      "interface": "Extension host protocol"
+    },
+    {
+      "@type": "Relation",
+      "subject": "kg:CapyIDE",
+      "predicate": "competesWith",
+      "object": "kg:Tabnine",
+      "competitiveAdvantage": "Memory-native architecture"
+    },
+    {
+      "@type": "Relation",
+      "subject": "kg:CapyIDE",
+      "predicate": "competesWith",
+      "object": "kg:GitHubCopilot",
+      "competitiveAdvantage": "Bundled features at lower price point"
+    }
+  ]
+}

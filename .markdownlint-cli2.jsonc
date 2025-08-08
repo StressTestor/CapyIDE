@@ -1,0 +1,18 @@
+{
+  "globs": [
+    "docs/**/*.md",
+    "site/**/*.md",
+    "site/**/*.mdx"
+  ],
+  "ignores": [
+    "**/node_modules/**",
+    "site/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "extensions/**",
+    "CapyIDE/**",
+    "tmp_capy_push/**",
+    "test/**"
+  ],
+  "config": {}
+}

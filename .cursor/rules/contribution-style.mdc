@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+# Contribution Style and Safety
+
+- Match the existing TypeScript style: explicit types for public APIs, early returns, small functions, and clear naming.
+- Prefer multi-line readability over dense one-liners; avoid unrelated reformatting in edits.
+- For Electron/VS Code code paths, keep platform abstractions intact and avoid importing Node-only modules into browser layers.
+- Security:
+  - Keep local-only features (memory/metrics) private by default; opt-in telemetry only.
+  - Do not introduce file/network side effects without a setting or user action.
+  - Keep secrets in OS keychain/DPAPI; avoid plaintext in repo.
+- Tests: add or update unit/integration tests when changing core behaviors.

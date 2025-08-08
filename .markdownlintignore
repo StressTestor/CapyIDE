@@ -1,0 +1,9 @@
+node_modules/
+site/.next/
+dist/
+build/
+extensions/
+CapyIDE/extensions/
+tmp_capy_push/
+test/
+CapyIDE/test/

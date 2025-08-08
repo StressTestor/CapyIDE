@@ -1,0 +1,8 @@
+# See https://securitytxt.org/
+Contact: mailto:security@capyide.dev
+Policy: https://capyide.dev/security
+Acknowledgments: https://capyide.dev/security#acknowledgments
+Preferred-Languages: en
+Hiring: https://capyide.dev/careers
+Expires: 2026-12-31T23:59:59.000Z
+
