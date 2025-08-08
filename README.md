@@ -1,83 +1,46 @@
-## CapyIDE
+# CapyIDE
 
-CapyIDE is a desktop IDE built on a VS Code OSS fork. It launches an Electron app that boots VS Code core, with a product focus on local-first features. Development-only MCP tools are available to streamline local workflows but are never shipped with the product.
+A developer IDE with **persistent memory** and an **AI Control Plane** that routes to mainstream models via BYOK. Offline-first, security-hardened, and priced so indies can actually use it.
 
-### Overview
-- **Product**: CapyIDE – VS Code OSS fork under `CapyIDE/` running via Electron
-- **App entry**: `CapyIDE/src/main.ts` → `CapyIDE/src/vs/code/electron-main/*`
-- **Build & packaging**: `CapyIDE/build/gulpfile.vscode.js`, `CapyIDE/build/lib/electron.ts`
-- **Built-in extensions**: `CapyIDE/extensions/`
-- **Tests**: `CapyIDE/test/`
-- **Dev-only MCP tools**: configured by `mcp_settings.json` and executed from sibling repo `../capy-mcp`
-- **Local data (opt-in)**: `capy-memory.db`, `capy-metrics.db` at repo root; private/local
+- **Positioning:** Only IDE with persistent memory + unlimited mainstream AI for **$15** (Pro).
+- **Status:** Active pre-release; public site at **https://capyide.dev**.
+- **Security:** OWASP-aligned site hardening (CSP nonces, strict headers, supply-chain hygiene).
 
-### Repository layout (selected)
-```
-CapyIDE/
-  build/                    # Gulp tasks and Electron helpers
-  src/                      # Electron + VS Code main process
-  extensions/               # Built-in extensions
-  test/                     # Unit, integration, smoke tests
-  package.json              # Product config & scripts
-mcp_settings.json           # Dev-only MCP servers (not packaged)
-capy-memory.db              # Local-only (opt-in)
-capy-metrics.db             # Local-only (opt-in)
-```
+## Features
+- MemoryKit: multi-layer persistent context for projects
+- AI Control Plane (ACP): BYOK routing to OpenAI/Claude/DeepSeek/Llama/etc.
+- Offline-first, local-friendly workflows
+- Optional integration with **Azure AI Foundry (GPT-5)** for reasoning-heavy tasks
+- Clean pricing: Free / Pro ($15) / Enterprise
 
-### Quick start (development)
-1) Install Node.js LTS and a supported Python/Build toolchain for native deps.
-
-2) Install dependencies inside `CapyIDE/`:
+## Quickstart (website)
 ```bash
-cd CapyIDE
-npm ci
+cd site
+pnpm i
+pnpm dev
+# build check
+pnpm build
 ```
 
-3) Build and launch the desktop app:
+## Security posture (site)
+- Strict CSP with per-request nonces; no unsafe-inline
+- HSTS (non-.dev previews), .dev is HSTS-preloaded
+- Permissions-Policy locked down; COOP/COEP/CORP set
+- Supply-chain hygiene (pinned deps, Dependabot, CodeQL, audits)
+- No secrets in repo; .env.local only with .env.example template
+
+## Tests
 ```bash
-npm run compile
-npm run electron
+pnpm test                    # Playwright e2e (headers/CSP)
+node scripts/headers-test.mjs
+node scripts/assets-scan.mjs # scan .next/static for secrets
+pnpm audit --audit-level=high
 ```
 
-4) (Optional) Download built-in extensions and run tests:
-```bash
-npm run download-builtin-extensions
-npm test
-```
+## Links
+- Website: https://capyide.dev
+- Repo: https://github.com/StressTestor/CapyIDE
+- Security contact: security@capyide.dev
 
-### Dev-only MCP tools
-MCP servers are configured via `mcp_settings.json` and run as stdio sidecars from a sibling repository `../capy-mcp`. They are for local development only and are not bundled or depended on by the product.
-
-- Validate MCP call path:
-```bash
-node ./mcp_call_test.mjs
-```
-
-- Smoke-test server spawn (Windows PowerShell):
-```powershell
-powershell -File ./mcp_smoketest.ps1
-```
-
-Guardrails for MCP:
-- Do not add MCP packages to `CapyIDE/package.json`.
-- Do not include any MCP artifacts in product packaging.
-- Paths in `mcp_settings.json` use `${workspaceFolder}` and point to `../capy-mcp`.
-
-### VS Code fork integration
-We maintain a focused integration branch and helper scripts:
-- Guide: `vscode_fork_manual_setup.md`
-- Preflight and setup: `preflight_checks.ps1`, `setup_vscode_fork.ps1`, `vscode_fork_setup.ps1`
-
-### Security, privacy, and platform boundaries
-- Local memory/metrics are opt-in and private by default; no unsolicited telemetry.
-- Secrets use the OS keychain/DPAPI. Avoid plaintext secrets in the repo.
-- Keep Electron/Node-only modules out of browser layers.
-- Packaging includes only `CapyIDE/` outputs and built-in extensions. Exclude dev-only and reference folders (e.g., `_refs`).
-
-### Contributing
-See `.github/CONTRIBUTING.md` for development standards (TypeScript style, tests, guardrails) and workflow.
-
-### License
-This project is licensed under the MIT License. Portions are derived from VS Code OSS (MIT).
-
-
+## License
+MIT — see LICENSE.
