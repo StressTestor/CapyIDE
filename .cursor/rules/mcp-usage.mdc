@@ -1,0 +1,22 @@
+---
+alwaysApply: true
+---
+# MCP Tools Usage (Development Only)
+
+- MCP servers are configured via [`mcp_settings.json`](mdc:mcp_settings.json) and run as stdio sidecars from the sibling repository `../capy-mcp`.
+- These tools are strictly for local development workflows (e.g., file ops, diffs, clipboard, memory, metrics, DB helpers).
+- The `CapyIDE/` product must not depend on or package MCP servers or SDKs beyond upstream VS Code OSS.
+
+## Paths and Environment
+- Paths in `mcp_settings.json` are relative to the workspace root and expand `${workspaceFolder}` for env values like `BASE_DIR`, `MEMORY_DB_PATH`, `METRICS_DB_PATH`.
+- Example entries (abbreviated):
+  - FS: `../capy-mcp/packages/fs/dist/index.js` with `BASE_DIR=${workspaceFolder}`
+  - Memory: `../capy-mcp/packages/memory/dist/index.js` with `MEMORY_DB_PATH=${workspaceFolder}/capy-memory.db`
+
+## Guardrails
+- Do not add MCP packages to `CapyIDE/package.json`.
+- Ensure packaging filters only include `CapyIDE/` build outputs and built-in extensions. Exclude any sibling or root-level MCP artifacts.
+
+## Quick validation
+- To verify MCP tools are callable, run: `node ./mcp_call_test.mjs`.
+- To smoke-test server spawn only, run: `powershell -File ./mcp_smoketest.ps1`.

@@ -1,0 +1,148 @@
+{
+  "mcpServers": {
+    "capy-core": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/core/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["ping"]
+    },
+    "capy-fs": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/fs/dist/index.js"],
+      "env": {
+        "BASE_DIR": "."
+      },
+      "disabled": false,
+      "autoApprove": ["read_file", "list_directory"]
+    },
+    "capy-git": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/git/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["git_status", "git_diff"]
+    },
+    "capy-nodepkg": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/nodepkg/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["npm_list"]
+    },
+    "capy-memory": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/memory/dist/index.js"],
+      "env": {
+        "MEMORY_DB_PATH": "./capy-memory.db"
+      },
+      "disabled": false,
+      "autoApprove": ["list_embeddings", "search_embeddings"]
+    },
+    "capy-build": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/build/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["list_processes"]
+    },
+    "capy-lint": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/lint/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "capy-image": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/image/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "capy-sqlite": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/sqlite/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["sqlite_schema"]
+    },
+    "capy-test": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/test/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "capy-browser": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/browser/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["browser_close"]
+    },
+    "capy-electron": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/electron/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["electron_status"]
+    },
+    "capy-pg": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/pg/dist/index.js"],
+      "env": {
+        "PG_CONN": "postgresql://user:pass@localhost:5432/dbname",
+        "PG_SSL": "0"
+      },
+      "disabled": false,
+      "autoApprove": ["pg_list_tables"]
+    },
+    "capy-fetch": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/fetch/dist/index.js"],
+      "env": {
+        "FETCH_ALLOWED_ORIGINS": "*"
+      },
+      "disabled": false,
+      "autoApprove": ["http_get"]
+    },
+    "capy-time": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/time/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["now", "format"]
+    },
+    "capy-clipboard": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/clipboard/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["clipboard_paste"]
+    },
+    "capy-diff": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/diff/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["diff_generate_text"]
+    },
+    "capy-secrets": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/secrets/dist/index.js"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["secret_list"]
+    },
+    "capy-metrics": {
+      "command": "node",
+      "args": ["../capy-mcp/packages/metrics/dist/index.js"],
+      "env": {
+        "METRICS_DB_PATH": "./capy-metrics.db"
+      },
+      "disabled": false,
+      "autoApprove": ["metric_list_names", "metric_query"]
+    }
+  }
+}

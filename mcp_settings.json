@@ -1,0 +1,24 @@
+{
+  "servers": {
+    "capy-core": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/core/dist/index.js"], "autoStart": true },
+    "capy-browser": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/browser/dist/index.js"], "autoStart": true },
+    "capy-build": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/build/dist/index.js"], "autoStart": true },
+    "capy-clipboard": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/clipboard/dist/index.js"], "autoStart": true },
+    "capy-diff": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/diff/dist/index.js"], "autoStart": true },
+    "capy-electron": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/electron/dist/index.js"], "autoStart": true },
+    "capy-fetch": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/fetch/dist/index.js"], "autoStart": true },
+    "capy-fs": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/fs/dist/index.js"], "autoStart": true, "env": { "BASE_DIR": "${workspaceFolder}" } },
+    "capy-git": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/git/dist/index.js"], "autoStart": true },
+    "capy-image": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/image/dist/index.js"], "autoStart": true },
+    "capy-lint": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/lint/dist/index.js"], "autoStart": true },
+    "capy-memory": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/memory/dist/index.js"], "autoStart": true, "env": { "MEMORY_DB_PATH": "${workspaceFolder}/capy-memory.db" } },
+    "capy-metrics": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/metrics/dist/index.js"], "autoStart": true, "env": { "METRICS_DB_PATH": "${workspaceFolder}/capy-metrics.db" } },
+    "capy-nodepkg": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/nodepkg/dist/index.js"], "autoStart": true },
+    "capy-pg": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/pg/dist/index.js"], "autoStart": false },
+    "capy-secrets": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/secrets/dist/index.js"], "autoStart": true },
+    "capy-sqlite": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/sqlite/dist/index.js"], "autoStart": true },
+    "capy-test": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/test/dist/index.js"], "autoStart": false },
+    "capy-time": { "type": "local-stdio", "command": "node", "args": ["../capy-mcp/packages/time/dist/index.js"], "autoStart": true }
+  },
+  "defaults": { "logLevel": "info", "timeout": 30000 }
+}
