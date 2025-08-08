@@ -51,18 +51,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const hdrs = headers();
-  const nonce = (hdrs as any).get ? (hdrs as any).get("x-nonce") : undefined;
+}: Readonly<{ children: React.ReactNode }>) {
+  const hdrs = headers() as unknown as Headers;
+  const nonce = hdrs.get('x-nonce') ?? undefined;
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
+      <head>{/* no inline script/style here; use nonce if you add any Script */}</head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning data-nonce={nonce}
       >
         {children}
+        {/* Example (if ever needed):
+        <script nonce={nonce}>{`// minimal non-inline usage`}</script>
+        */}
       </body>
     </html>
   );

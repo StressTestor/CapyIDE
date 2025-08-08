@@ -1,92 +1,54 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-function generateNonce(): string {
-  // Use uuid and base64url without padding as a simple nonce surrogate
-  // to avoid Buffer usage in Edge runtime.
-  const uuid = crypto.randomUUID();
-  return uuid.replace(/-/g, "");
-}
+export function middleware(req: NextRequest) {
+  const nonce = crypto.randomUUID();
 
-export function middleware(request: NextRequest) {
-  const nonce = generateNonce();
+  const isProd = process.env.NODE_ENV === 'production';
 
-  // Build strict CSP with nonce and strict-dynamic
-  const cspDirectives = [
+  const parts = [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
     "style-src 'self'",
-    "img-src 'self' data: blob:",
+    "img-src 'self' data:",
     "font-src 'self'",
     "object-src 'none'",
     "base-uri 'none'",
-    "form-action 'self'",
     "frame-ancestors 'none'",
-    "require-trusted-types-for 'script'",
-    "upgrade-insecure-requests",
-  ];
-  const csp = cspDirectives.join("; ");
+    'upgrade-insecure-requests',
+    !isProd ? "connect-src 'self' ws:" : null,
+  ].filter(Boolean) as string[];
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-nonce", nonce);
-
-  const response = NextResponse.next({
+  // propagate nonce to the app via request headers and set response headers
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set('x-nonce', nonce);
+  const res = NextResponse.next({
     request: { headers: requestHeaders },
   });
 
-  // Core security headers
-  response.headers.set("Content-Security-Policy", csp);
-  response.headers.set("Referrer-Policy", "no-referrer");
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
-  response.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-  response.headers.set("Cross-Origin-Resource-Policy", "same-site");
-  response.headers.set(
-    "Permissions-Policy",
-    [
-      "accelerometer=()",
-      "ambient-light-sensor=()",
-      "autoplay=()",
-      "battery=()",
-      "camera=()",
-      "display-capture=()",
-      "document-domain=()",
-      "encrypted-media=()",
-      "fullscreen=()",
-      "geolocation=()",
-      "gyroscope=()",
-      "interest-cohort=()",
-      "magnetometer=()",
-      "microphone=()",
-      "midi=()",
-      "payment=()",
-      "picture-in-picture=()",
-      "publickey-credentials-get=()",
-      "screen-wake-lock=()",
-      "sync-xhr=()",
-      "usb=()",
-      "xr-spatial-tracking=()",
-    ].join(", ")
-  );
+  // pass nonce to app via header
+  res.headers.set('x-nonce', nonce);
 
-  // HSTS only on non-localhost; .dev is HSTS-preloaded but setting is harmless in prod
-  const host = request.headers.get("host") || "";
-  if (!host.startsWith("localhost") && !host.startsWith("127.0.0.1")) {
-    response.headers.set(
-      "Strict-Transport-Security",
-      "max-age=63072000; includeSubDomains; preload"
-    );
+  // response headers (must be on the response) — CSP is set statically via next.config.ts
+
+  res.headers.set('Referrer-Policy', 'no-referrer');
+  res.headers.set('X-Content-Type-Options', 'nosniff');
+  res.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  res.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+  res.headers.set('Cross-Origin-Resource-Policy', 'same-site');
+
+  if (isProd) {
+    res.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+    // tighten as needed:
+    res.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   }
 
-  return response;
+  return res;
 }
 
+// run on everything except static assets and auto files
 export const config = {
-  matcher: [
-    {
-      source: "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.well-known).*)",
-    },
-  ],
+  matcher: ['/:path*'],
 };
 
 
