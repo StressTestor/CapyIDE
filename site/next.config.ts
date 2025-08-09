@@ -20,6 +20,7 @@ const securityHeaders = [
   { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
   { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
   { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=()' },
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
 ];
 
 const nextConfig: NextConfig = {
