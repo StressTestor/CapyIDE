@@ -2,7 +2,8 @@ import type { NextConfig } from 'next';
 
 const csp = [
   "default-src 'self'",
-  "script-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "script-src-elem 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "style-src-elem 'self' 'unsafe-inline'",
   "img-src 'self' data:",
