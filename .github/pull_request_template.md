@@ -1,4 +1,13 @@
 ## Summary
+(What this PR changes)
+
+## Checklist
+- [ ] Conventional Commit message
+- [ ] Lints/Build pass locally
+- [ ] Playwright tests added/updated and passing
+- [ ] No secrets in repo or build (`scripts/assets-scan.mjs`)
+- [ ] Docs updated (README/SECURITY/etc.)
+## Summary
 
 Describe the purpose of this change.
 

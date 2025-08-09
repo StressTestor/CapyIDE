@@ -30,6 +30,20 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: securityHeaders,
       },
+      // Add HSTS only when NOT on localhost/127.0.0.1
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            // negative lookahead to exclude localhost and 127.0.0.1 (with optional port)
+            value: '^(?!localhost(:\\d+)?$)(?!127\\.0\\.0\\.1(:\\d+)?$).*',
+          },
+        ],
+        headers: [
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+        ],
+      },
     ];
   },
 };

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,17 +51,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const hdrs = headers() as unknown as Headers;
-  const nonce = hdrs.get('x-nonce') ?? undefined;
   return (
     <html lang="en">
-      <head>{/* no inline script/style here; use nonce if you add any Script */}</head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning data-nonce={nonce}
+      <head>{/* no inline script/style here */}</head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning
       >
         {children}
-        {/* Example (if ever needed):
-        <script nonce={nonce}>{`// minimal non-inline usage`}</script>
-        */}
       </body>
     </html>
   );
